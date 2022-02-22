@@ -1,0 +1,36 @@
+<Command xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="extension-1.0.xsd" Name="STATS_POWERCHISQUARE" Language="Python" LanguageVersion="3">
+   <Subcommand Name="PARAMETERS">
+     <Parameter Name="OBSERVED" ParameterType="TokenList" Occurrence="Optional"/>
+     <Parameter Name="EXPECTED" ParameterType="TokenList" Occurrence="Optional">
+       <EnumValue Name="EQUAL"/>
+     </Parameter>
+     <Parameter Name="COLUMNS" ParameterType="TokenList" Occurrence="Optional"/>
+     <Parameter Name="N" ParameterType="TokenList" Occurrence="Optional">
+       <EnumValue Name="TO"/>
+       <EnumValue Name="BY"/>
+     </Parameter>
+     <Parameter Name="ALPHA" ParameterType="TokenList" Occurrence="Optional">
+       <EnumValue Name="TO"/>
+       <EnumValue Name="BY"/>
+     </Parameter>
+     <Parameter Name="DF" ParameterType="TokenList" Occurrence="Optional">
+       <EnumValue Name="TO"/>
+       <EnumValue Name="BY"/>
+     </Parameter>
+     <Parameter Name="ES" ParameterType="TokenList" Occurrence="Optional">
+       <EnumValue Name="TO"/>
+       <EnumValue Name="BY"/>
+     </Parameter>
+     <Parameter Name="POWER" ParameterType="TokenList" Occurrence="Optional">
+       <EnumValue Name="TO"/>
+       <EnumValue Name="BY"/>
+     </Parameter>
+   </Subcommand>
+   <Subcommand Name="PLOT">
+      <Parameter Name="DISPLAY" ParameterType="Keyword" Occurrence="Optional">
+         <EnumValue Name="YES"/>
+         <EnumValue Name="NO"/>
+      </Parameter>     
+   </Subcommand>
+   <Subcommand Name="HELP" Occurrence="Optional"/>
+</Command>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=9" >
+<link rel="stylesheet" type="text/css" href="extsyntax.css" />
+<title>STATS_POWERCHISQUARE Extension Command</title>
+</head>
+
+<body>
+<h1>STATS_POWERCHISQUARE Extension Command</h1>
+<p>Provides estimates of power or sample size requirements for a variety of chi-square models.</p>
+<div class="syntax">
+<font face="Courier New, monospace">
+
+<pre>
+<p>STATS_POWERCHISQUARE
+&nbsp;&nbsp;/PARAMETERS
+&nbsp;&nbsp;&nbsp;&nbsp;&lsqb;<em>OBSERVED</em>&equals;values&rsqb;
+&nbsp;&nbsp;&nbsp;&nbsp;&lsqb;<em>EXPECTED</em>&equals;EQUAL&nbsp;&vert;&nbsp;values&rsqb;
+&nbsp;&nbsp;&nbsp;&nbsp;&lsqb;<em>COLUMNS</em>&equals;value&rsqb;
+&nbsp;&nbsp;&nbsp;&nbsp;&lsqb;<em>N</em>&equals;value(s)&rsqb;&nbsp;&vert;&nbsp;value1 TO value2 BY step&rsqb;
+&nbsp;&nbsp;&nbsp;&nbsp;&lsqb;<em>ALPHA</em>&equals;value(s)&rsqb;&nbsp;&vert;&nbsp;value1 TO value2 BY step&rsqb;
+&nbsp;&nbsp;&nbsp;&nbsp;&lsqb;<em>DF</em>&equals;value(s)&rsqb;&nbsp;&vert;&nbsp;value1 TO value2 BY step&rsqb;
+&nbsp;&nbsp;&nbsp;&nbsp;&lsqb;<em>ES</em>&equals;value(s)&rsqb;&nbsp;&vert;&nbsp;value1 TO value2 BY step&rsqb;
+&nbsp;&nbsp;&nbsp;&nbsp;&lsqb;<em>POWER</em>&equals;value(s)&rsqb;&nbsp;&vert;&nbsp;value1 TO value2 BY step&rsqb;
+&nbsp;&nbsp;&lsqb;/PLOT&nbsp;<em>DISPLAY</em>&equals;<em>YES</em>&nbsp;&vert;&nbsp;<em>NO</em>&rsqb;
+&nbsp;&nbsp;&lsqb;/HELP&rsqb;</p>
+</style>
+</div>
+</font>
+</div>
+<p>As with all <b>POWER</b> procedures, data are not required.</p>
+<p>1. In the first example, effect size is given. This makes entering table data (OBSERVED, EXPECTED, and COLUMNS) unnecessary. Note that in this case DF must be specified. Three power values are found, each corresponding to one of the projected sample size (N) values&colon;</p>
+<pre class="example">
+<br>
+<code>STATS_POWERCHISQUARE
+    /PARAMETERS&nbsp;ES=.2182179&nbsp;DF=2&nbsp;ALPHA=.01&nbsp;N=150&nbsp;175&nbsp;200
+    /PLOT DISPLAY=YES.
+</code></pre>
+<br>
+<p>2. In this example, power and sample size are sequentially estimated (and charts produced) for a series of alpha levels&colon;</p>
+<pre class="example">
+<br>
+<code>STATS_POWERCHISQUARE
+     /PARAMETERS ES=.4 DF=2 ALPHA=.001 .01 .025 .05 POWER=.80
+     /PLOT DISPLAY=YES.</code>
+<code>STATS_POWERCHISQUARE
+     /PARAMETERS ES=.4 DF=2 ALPHA=.001 .01 .025 .05 N=100
+     /PLOT DISPLAY=YES.</code>
+</pre>
+<br>
+<p>3. Table data can also be used. Assume the proportions of interest form a 2 x 3 table&colon;</p>
+<table class=left></caption>
+  <tr><th scope="row"></th><th>Col 1</th><th>Col 2</th><th>Col 3</th></tr>
+  <tr><th scope="row">Row 1</th><td>0.22</td><td>0.35</td><td>0.03</td></tr>
+  <tr><th scope="row">Row 2</th><td>0.23</td><td>0.10</td><td>0.07</td></tr>
+</table>
+<style>
+table, th, td { width: 20em; border: 1px solid black; text-align: end; }
+table.center { margin-left: auto; margin-right: auto; }
+table td:nth-child(3) { text-align: end; }
+</style>
+<p>These values are entered as a vector using the OBSERVED keyword. The COLUMNS keyword is then used to give the table its dimensionality&colon;</p>
+<pre class="example">
+<br>
+<code>STATS_POWERCHISQUARE /PARAMETERS
+  OBSERVED=.22, .35, .03, .23, .10, .07
+  EXPECTED=.27, .27, .06, .18, .18, .04
+  COLUMNS=3
+  ALPHA=.01
+  N=100 TO 200 BY 20.
+</code></pre>
+<p>Note that when OBSERVED is used, EXPECTED values are automatically calculated by the program if not explicitly specified. Use EXPECTED when your null hypothesis does not conform to the usual independence model ((row total * column total) / N).</p>
+<br>
+<p>4. When a table of cell counts is used, N can be omitted. For example:
+<pre class="example">
+<br>
+<code>STATS_POWERCHISQUARE
+ /PARAMETERS OBSERVED=29 24 22 19 21 18 19 20 23 18 20 23
+             EXPECTED=EQUAL COLUMNS=12 ALPHA=.05
+ /PLOT DISPLAY=NO.
+</code></pre>
+<p>N is not specified but is implicit in the table as the total cell count; therefore, the procedure will estimate POWER.
+<hr>
+<h2>PARAMETERS</h2>
+<p><strong>OBSERVED</strong>: Used with the COLUMNS keyword to define a table of observed values. These can be proportions or cell counts.</p>
+<p><strong>EXPECTED</strong>: Optionally used with OBSERVED, these are the corresponding expected values (cells counts or proportions). As noted above, when this keyword is not used, the usual independence model is assumed.</p>
+<p><strong>COLUMNS</strong>: Required when OBSERVED is used. COLUMNS defines the dimensionality of the table of proportions or cells counts.</p>
+<p><strong>ALPHA</strong>: Alpha error value(s).
+<p><strong>DF</strong>: Degrees of freedom.
+<p><strong>ES</strong>: The values of Effect Size(s).
+<p><strong>N</strong>: Sample size(s).
+<p><strong>POWER</strong>: Power value(s).
+<hr>
+<h2>PLOT</h2>
+<p><strong>DISPLAY</strong>: Select <b>YES</b> or <b>NO</b>. Default=<b>YES</b>.</p>
+<hr>
+<h2>HELP</h2>
+<p>Used without keywords to display this information.</p>
+<p>&nbsp;</p>
+<p>The <b>STATS_POWERCHISQUARE</b> extension requires Python 3.</p>
+<p>&copy; Copyright IBM Corp. 2021</p>
+
+</body>
+</html>

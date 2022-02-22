@@ -1,0 +1,16 @@
+Name: STATS_POWERCHISQUARE
+Dialog-Specs: STATS_POWERCHISQUARE.cfe
+Command-Specs: STATS_POWERCHISQUARE.xml
+Code-Files: statjson.py,STATS_POWERCHISQUARE.py
+Misc-Files: extsyntax.css,STATS_POWERCHISQUARE.html,IBMdialogicon.png
+Summary: Power Analysis for Chi-Square models
+Description: Power Analysis for Chi-Square models
+Author: Richard J Marcantonio
+Version: 1.0.0
+Product-Version: 27
+Date: 01/04/2022
+Platforms: macOS;Windows
+Categories: Power Analysis;Chi-Square
+Plugins: Python
+Python-Version: 3
+Translation-Catalogues: 
