@@ -127,6 +127,7 @@ def GetExpectedValues (o, rowsum, colsum, cols):
 
 ######
 def ConstructSyntax (p,d):
+  s = ''
   if p == 0:
     syntax="DATA LIST FREE / ChiSq Effect_Size alpha df numcases." + \
            "\nBEGIN DATA." + d + "\nEND DATA.\nEXECUTE." + \
@@ -155,8 +156,10 @@ def ConstructSyntax (p,d):
            "\nVARIABLE LABELS chi_at_power 'Chi-Square at Desired Power' actual_power 'Actual Power'" + \
            "\n Effect_Size 'Effect Size' alpha 'Sig.' df 'df' n_round 'Number of Cases Needed'" + \
            "\n requested_power 'Requested Power'."
+           
+  s = "PRESERVE.\nSET DECIMAL=DOT.\n" + syntax + "\nRESTORE."         
 
-  return syntax
+  return s
 
 def CreateCellInformationTable(rows,cols,OBS,EXP,proportion,proc):
 
