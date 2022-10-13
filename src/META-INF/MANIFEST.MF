@@ -1,4 +1,5 @@
 Name: STATS_POWERCHISQUARE
+Display-Name: Power Analysis for Chi-Square Models
 Dialog-Specs: STATS_POWERCHISQUARE.cfe
 Command-Specs: STATS_POWERCHISQUARE.xml
 Code-Files: statjson.py,STATS_POWERCHISQUARE.py
